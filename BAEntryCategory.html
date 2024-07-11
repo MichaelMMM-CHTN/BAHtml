@@ -1,0 +1,522 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Fixed Sidebar and Top Bar Layout</title>
+    <style>
+        /* General body and html styles */
+        * {
+            box-sizing: border-box;
+        }
+
+        body, html {
+            font-family: Arial, sans-serif;
+            background-color: lightgrey;
+            margin: 0;
+            padding: 0;
+            height: 100%;
+        }
+
+        .container {
+            display: flex;
+        }
+
+        /* Top bar styles */
+        .topbar {
+            display: flex;
+            justify-content: center;
+            align-items: center;
+            background-color: white;
+            padding: 10px 20px;
+            box-shadow: 0 2px 4px rgba(0, 0, 0, 0.1);
+            width: calc(100% - 200px); /* Adjust for the sidebar width */
+            position: fixed;
+            top: 0;
+            left: 200px; /* Align to the right of the sidebar */
+            z-index: 1;
+        }
+
+        .welcome {
+            background-color: lightblue;
+            padding:5px;
+            margin-right: auto;
+            width: 125px;
+            height: 30px;
+        }
+
+        .text-content1 {
+            position:fixed;
+            font-size: 15px;
+            font-weight: bold;
+            top:0;
+        }
+
+        /* Sidebar styles */
+        .sidebar {
+            display: flex;
+            flex-direction: column;
+            width: 200px;
+            background-color: white;
+            height: 100vh;
+            padding-right: 5px;
+            position: fixed;
+            z-index: 1;
+            top: 0; /* Space for the top bar */
+            left: 0;
+            overflow-x: hidden;
+            padding-top: 20px;
+            box-shadow: 0 2px 4px rgba(0, 0, 0, 0.1);
+        }
+
+        .sidebar .logout {
+            margin-top: auto;
+            margin-bottom: 20px;
+            text-align: left;
+            color: rgb(209, 70, 70);
+        }
+
+        /* Main content area */
+        .main-content {
+            margin-top: 25px; /* Space for the top bar */
+            margin-left: 200px; /* Space for the sidebar */
+            padding: 20px;
+            width: calc(100% - 200px); /* Adjust for the sidebar width */
+            height: 100vh;
+            overflow-y: auto;
+        }
+
+        /* Image styles */
+        img {
+            padding-top: 1px;
+            height: 65px;
+            width: 65px;
+            box-shadow: 0 4px 2px -2px gray; /* Shadow line under the image */
+        }
+
+        .center {
+            display: block;
+            margin-left: auto;
+            margin-right: auto;
+        }
+
+        /* Sidebar label styles */
+        .sidebar label {
+            margin: 10px 0;
+            padding: 10px;
+            cursor: pointer;
+        }
+
+        /* BA Barang box styles */
+        .ba-barang-box {
+            background-color: white;
+            border-radius: 8px;
+            box-shadow: 0 2px 4px rgba(0, 0, 0, 0.1);
+            padding: 25px;
+            padding-left: 25px;
+            margin-top: -10px;
+        }
+
+        .ba-barang-box h3 {
+            margin-top: 0;
+        }
+
+        .ba-barang {
+            margin-top: -50px;
+        }
+
+        .form-group {
+            display: flex;
+            align-items: center;
+            margin-bottom: 10px;
+            
+        }
+
+        .form-group label {
+            margin-right: 10px;
+            font-weight: bold;
+            font-size:small;
+            flex-shrink: 0;
+
+        }
+
+        .form-group.full-width {
+            flex: 1;
+        }
+
+        .inline-form-group {
+            display: flex;
+            justify-content: space-between;
+            gap: 20px; /* Add space between the elements */
+            align-items: center; /* Align items at the center vertically */
+        }
+
+        .dropdown {
+            padding: 10px;
+            width:150px;
+            border: 1px solid #ddd;
+            border-radius: 4px;
+            background-color: white;
+            font-weight:bold;
+            color: #333;
+            font-size: 14px;
+            flex: 1;
+        }
+
+        .dropdown1, .input-field {
+            padding: 10px;
+            width:50px;
+            border: 1px solid #ddd;
+            border-radius: 4px;
+            background-color: white;
+            font-weight:bold;
+            color: #333;
+            font-size: 14px;
+            flex: 1;
+        }
+
+        .dropdown2 {
+            padding: 10px;
+            width:50px;
+            border: 1px solid #ddd;
+            border-radius: 4px;
+            background-color: white;
+            font-weight:bold;
+            color: #333;
+            font-size: 14px;
+            flex: 1;
+            margin-right:50px;
+        }
+
+        .dropdown, .input-field {
+            padding: 10px;
+            width:100px;
+            border: 1px solid #ddd;
+            border-radius: 4px;
+            background-color: white;
+            font-weight:bold;
+            color: #333;
+            font-size: 14px;
+            flex: 1;
+            margin-right:75px;
+        }
+
+        .entry-ba-barang {
+            display: flex;
+            flex-direction: column;
+        }
+
+        .entry-row {
+            display: flex;
+            justify-content: space-between;
+            align-items: flex-start;
+           
+        }
+
+        .entry-row > div {
+            flex: 1;
+        }
+
+        .row {
+            display: flex;
+            flex-wrap: wrap;
+            justify-content: space-between;
+            gap: 30px;
+        }
+
+        .row1 {
+            display: flex;
+            flex-wrap: wrap;
+            justify-content:right;
+            gap: 30px;
+            
+        }
+
+        .col {
+            flex: 1;
+            min-width: 200px;
+            margin-right:10px;
+        }
+        .col1 {
+            flex:1;
+            min-width:300px;
+            margin-right:50px;
+        }
+
+        .col2 {
+            flex:1;
+            justify-content:right;
+            min-width:200px;
+            margin-right:100px;
+        }
+        .col3 {
+            flex:1;
+            justify-content:right;
+            min-width:200px;
+            margin-right:15px;
+        }
+
+        .col4 {
+            flex:1;
+            justify-content:right;
+            min-width:200px;
+            margin-right:590px;
+        }
+
+        .col5 {
+            flex:1;
+            justify-content:right;
+            min-width:200px;
+            margin-right:15px;
+        }
+
+        .col6 {
+            flex:1;
+            justify-content:right;
+            min-width:200px;
+            margin-left:545px;
+            margin-right:50px;
+        }
+
+        .btn {
+            padding: 5px 10px;
+            background-color: #6c757d;
+            color: white;
+            border: none;
+            border-radius: 4px;
+            cursor: pointer;
+        }
+
+        .btn-purple {
+            background-color: white;
+            border-style: solid;
+            border-color:blue;
+            color:blue;
+            right:100px;
+            width:100px;
+            margin-left:50px;
+        }
+
+        .btn-blue {
+            background-color: darkblue;
+            color:white;
+            width:100px;
+            margin-right:50px;
+        }
+
+        .container2 {
+    display: flex;
+    align-items: left;
+    justify-content: left;
+
+        }
+        .img1 {
+            justify-content:left;
+            width:2px;
+            height:2px;
+
+        }
+
+        .img3 {
+            justify-content:left;
+            width:2px;
+            bottom:0;
+        }
+        .text {
+                font-size: 15px;
+                padding-left: 20px;
+                float: left;
+            }
+
+        .text1 {
+                font-size: 15px;
+                padding-left: 20px;
+                float: left;
+        }
+
+        .logout {
+            position:fixed;
+            left:0px;
+            bottom:0px;
+        }
+    </style>
+</head>
+<body>
+    <div class="container">
+        <aside class="sidebar">
+            <img src="C:/Users/Asus/Downloads/ljrlogo.png" class="center">
+            <br>
+            <br>
+            <br>
+            <div class = "container2">
+                <div class="img1">
+                  <img src=>
+                </div>
+                <div class="text">
+                    <label>&nbsp; &nbsp; &nbsp; Dashboard</label>
+                </div>
+                </div>
+                <br>
+                <div class = "container2">
+                <div class="img1">
+                    <img src=>
+                  </div>
+                  <div class="text1">
+            <label>&nbsp; &nbsp; &nbsp; BA Barang</label>
+            </div>
+            </div>
+            <div class = "container2">
+                <div class="img3">
+                  <img src="">
+                </div>
+                <div class="logout">
+            <label><b>&nbsp; &nbsp; &nbsp; Logout </b></label>
+            </div>
+            </div>
+        </aside>
+        <div class="topbar">
+            <div class="welcome">
+                <div class="text-content1"> 
+                    <p>&nbsp;Welcome, User</p>
+            </div>
+            </div>
+        </div>
+        <div class="main-content">
+            <h3><span class="ba-barang">BA Barang</span></h3>
+            <div class="ba-barang-box">
+                <b>Entry BA Barang</b> <br> <br>
+                <div class="entry-ba-barang">
+                    <div class="row">
+                        <div class="col form-group">
+                            <label for="type-ba">Tipe BA &nbsp; &nbsp; &nbsp; &nbsp; &nbsp; &nbsp; &nbsp; &nbsp; &nbsp;</label>
+                            <select id="type-ba" class="dropdown">
+                                <option value="" disabled selected>Internal/Eksternal/Dokumen</option>
+                                <option value="internal">Internal</option>
+                                <option value="eksternal">Eksternal</option>
+                                <option value="dokumen">Dokumen</option>
+                            </select>
+                        </div>
+    
+                        <div class="col1 form-group">
+                            <label for="lokasi-terbit-ba">&nbsp;Lokasi Terbit BA &nbsp; &nbsp; &nbsp; &nbsp; &nbsp; &nbsp; &nbsp; &nbsp; &nbsp;</label>
+                            <select id="lokasi-terbit-ba" class="dropdown1">
+                                <option value="" disabled selected>Cabang/Pengirim/Penerima/Mitra</option>
+                                <option value="cabang">Cabang</option>
+                                <option value="pengirim">Pengirim</option>
+                                <option value="penerima">Penerima</option>
+                                <option value="mitra">Mitra</option>
+                            </select>
+                        </div>
+                    </div>
+                    <div class="row">
+                        <div class="col3 form-group">
+                            <label for="no-sttb">No STTB &nbsp; &nbsp; &nbsp; &nbsp; &nbsp; &nbsp; &nbsp; &nbsp;</label>
+                            <input type="text" id="no-sttb" class="dropdown">
+                           
+                        </div>
+                        
+                        <div class="col1 form-group">
+                            <label for="detail-ketidaksesuaian" style ="margin-left:-4px;"> &nbsp;Detail Ketidaksesuaian &nbsp; &nbsp; &nbsp; &nbsp;</label>
+                            <select id="detail-ketidaksesuaian" class="dropdown1">
+                                <option value="" disabled selected>Rusak/Hilang/Miss route</option>
+                                <option value="rusak">Rusak</option>
+                                <option value="hilang">Hilang</option>
+                                <option value="miss-route">Miss route</option>
+                            </select>
+                        </div>
+                        </div>
+                        <p><span class = "detail">Detail</span></p>
+                        <div class = "row">
+                        <div class="col form-group">
+                            <label for="jumlah-koli">Jumlah Koli &nbsp; &nbsp; &nbsp; &nbsp; &nbsp;</label>
+                            <select id="jumlah-koli" class="dropdown">
+                                <option value="" disabled selected></option>
+                                <option value="cabang">Cabang</option>
+                                <option value="pengirim">Pengirim</option>
+                                <option value="penerima">Penerima</option>
+                                <option value="mitra">Mitra</option>
+                            </select>
+                            </div>
+                        <div class="col1 form-group">
+                            <label for="kategori-perbaikan">&nbsp;Kategori Perbaikan &nbsp; &nbsp; &nbsp; &nbsp; &nbsp; &nbsp; &nbsp;</label>
+                            <input type="text" id="no-koli" class="dropdown1" placeholder="Input">
+                        </div>
+                    </div>
+                    <div class = "row">
+                        <div class="col form-group">
+                            <label for="no-koli">No Koli &nbsp; &nbsp; &nbsp; &nbsp; &nbsp; &nbsp; &nbsp; &nbsp; &nbsp;</label>
+                            <input type="text" id="no-koli" class="dropdown" placeholder="Input">
+                        </div>
+                        <div class="col1 form-group">
+                            <label for="barang-kiriman">&nbsp;Barang Kiriman&nbsp; &nbsp; &nbsp; &nbsp; &nbsp; &nbsp; &nbsp; &nbsp; &nbsp;  &nbsp;</label>
+                            <input type="text" id="no-koli" class="dropdown1" placeholder="Input">
+                        </div>
+                        </div>
+                        <div class ="row">
+                            <div class="col form-group">
+                            <label for="jenis-barang">Jenis Barang &nbsp; &nbsp; &nbsp; &nbsp; </label>
+                            <input type="text" id="jenis-barang" class="dropdown" placeholder="Input">
+                        </div>
+                        <div class="col1 form-group">
+                            <label for="nama-barang">&nbsp;Jenis Pembungkus &nbsp; &nbsp; &nbsp; &nbsp; &nbsp; &nbsp; &nbsp;</label>
+                            <select id="nama-barang" class="dropdown1">
+                                <option value="cabang">Cabang</option>
+                                <option value="pengirim">Pengirim</option>
+                                <option value="penerima">Penerima</option>
+                                <option value="mitra">Mitra</option>
+                            </select>
+                        </div>
+                        </div>
+
+                        <div class ="row">
+                            <div class="col form-group">
+                            <label for="jenis-barang">Nama Barang &nbsp; &nbsp; &nbsp; &nbsp;</label>
+                            <input type="text" id="jenis-barang" class="dropdown" placeholder="Input">
+                        </div>
+                        <div class="col1 form-group">
+                            &nbsp;
+                            <label for="nama-barang">Kerusakan Pada &nbsp; &nbsp; &nbsp; &nbsp; &nbsp; &nbsp;  &nbsp;  &nbsp; &nbsp; <br> Pembungkus</label>
+                            <select id="nama-barang" class="dropdown1">
+                                <option value="cabang">Cabang</option>
+                                <option value="pengirim">Pengirim</option>
+                                <option value="penerima">Penerima</option>
+                                <option value="mitra">Mitra</option>
+                            </select>
+                        </div>
+                        </div>
+                        <div class="col6 form-group">
+                            <label for="kronologi" style ="margin-left:-8px;">Kerusakan Pada &nbsp; &nbsp; &nbsp; &nbsp; &nbsp; &nbsp; &nbsp; &nbsp; &nbsp; <br> Isi</label>
+                            <input type="text" id="kronologi" class="dropdown1" placeholder="Input">
+                            </div>
+
+
+                        <div class="col6 form-group">
+                                <label for="kronologi" style ="margin-left:-8px;">Analisa Penyebab &nbsp; &nbsp; &nbsp; &nbsp; &nbsp; &nbsp;  &nbsp;</label>
+                                <input type="text" id="kronologi" class="dropdown1" placeholder="Input">
+                                </div>
+                                <div class="col6 form-group">
+                                    <label for="kronologi" style ="margin-left:-8px;">Kronologi &nbsp; &nbsp; &nbsp; &nbsp; &nbsp; &nbsp; &nbsp; &nbsp; &nbsp; &nbsp; &nbsp; &nbsp; &nbsp; &nbsp;</label>
+                                    <input type="text" id="kronologi" class="dropdown1" placeholder="Input">
+                                    </div>
+                                    <div class="col6 form-group">
+                                        <label for="kronologi" style ="margin-left:-8px;">Tindakan Perbaikan &nbsp; &nbsp; &nbsp; &nbsp; &nbsp; &nbsp;</label>
+                                        <input type="text" id="kronologi" class="dropdown1" placeholder="Input">
+                                        </div>
+                                        <div class="col6 form-group">
+                                            <label for="kronologi" style ="margin-left:-8px;">Foto Perbaikan Barang &nbsp; &nbsp; &nbsp; &nbsp;</label>
+                                            <input type="text" id="kronologi" class="dropdown1" placeholder="Input">
+                                            </div>
+                        <div class ="row1">
+                            &nbsp;
+                            &nbsp;
+                            &nbsp;
+                        <button class="btn btn-purple">Cancel</button>
+                        <button class="btn btn-blue">Submit</button>
+                        </div>
+                    </div>
+                </div>
+            </div>
+        </div>
+    </div>
+</body>
+</html>
