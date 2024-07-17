@@ -1,0 +1,77 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Dropdown Menu</title>
+    <style>
+        body {
+    font-family: Arial, sans-serif;
+}
+
+.dropdown {
+    position: relative;
+    display: inline-block;
+}
+
+
+
+
+
+.form-group {
+            display: flex;
+            align-items: center;
+            margin-bottom: 10px;
+            
+        }
+
+        .form-group label {
+            margin-right: 10px;
+            font-weight: bold;
+            font-size:small;
+            flex-shrink: 0;
+
+        }
+
+        .form-group.full-width {
+            flex: 1;
+        }
+
+        .btn {
+            margin-left:195px;
+            color:white;
+            background-color:darkblue;
+            padding:10px;
+            border:none;
+            border-radius: 10px; /* Rounded corners */
+            cursor: pointer;
+            display: inline-block;
+            width:75px;
+        }
+</style>
+</head>
+<body>
+    <div class="form group">
+        <div class="dropdown">
+            <label><b>Pilih Jenis Kerusakan Isi</b></label>
+            <br>
+            <br>
+               <label><input type="checkbox" name="kerusakan" value="basah" style = "margin-bottom:10px;">  &nbsp; Basah
+            </label>
+            <br>
+            <label>
+                <input type="checkbox" name="kerusakan" value="penyok" style = "margin-bottom:10px;">  &nbsp; Penyok
+            </label>
+            <br>
+            <label>
+                <input type="checkbox" name="kerusakan" value="lainnya" style = "margin-bottom:10px;">  &nbsp; Lanjutkan pilihan lain <br>  &nbsp;  &nbsp;  &nbsp;  &nbsp;dimaster
+            </label>
+        </div>
+    </div>
+    <br>
+    <br>
+    <button class = "btn" type="submit">Submit</button>
+
+</body>
+</html>
+
